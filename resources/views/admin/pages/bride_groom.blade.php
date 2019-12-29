@@ -22,7 +22,7 @@
                 @if($errors->any())
                 <p class="alert alert-danger">অনুগ্রহ করে সঠিক তথ্য প্রদান করুন {{$errors->first()}}</p>
                 @endif
-                <form action="" method="post">
+                <form action="/govt/kazi/marriage" method="post">
         
                 <div class="row">
                     <div class="col-lg-6 col-md-6">

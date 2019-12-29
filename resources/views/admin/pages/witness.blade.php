@@ -22,7 +22,8 @@
                 @if($errors->any())
                 <p class="alert alert-danger">অনুগ্রহ করে সঠিক তথ্য প্রদান করুন {{$errors->first()}}</p>
                 @endif
-                <form action="" method="post">
+                <form action="/govt/kazi/marriage/witness" method="post">
+                    <input type="hidden" name="__page" value="religion">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="card card-primary">
@@ -30,33 +31,30 @@
                             <div class="card-body card-block">
                                 <div class="form-group">
                                     <label for="vat" class=" form-control-label">জাতীয় পরিচয় পত্রের নম্বর </label>
-                                    <input  type="text"  placeholder="1234567890" class="form-control" name="groom_nid" v-model="groom_nid">
+                                    <input  type="text"  placeholder="1234567890" class="form-control" name="witness1_nid" v-model="witness1_nid">
                                 </div>
                                 <div class="groom-block">
                                 <div class="form-group">
                                     <label for="company" class=" form-control-label">সাক্ষীর নাম ( বাংলায় )</label>
-                                    <input readonly type="text"  placeholder="" class="form-control"  v-model="groom_name" name="groom_name" >
+                                    <input readonly type="text"  placeholder="" class="form-control"  v-model="witness1_name" name="witness1_name" >
                                 </div>
                                 <div class="form-group">
                                     <label for="street" class=" form-control-label">জন্ম তারিখ </label>
-                                    <input readonly type="text"  placeholder="YYYY-MM-DD" class="form-control"  v-model="groom_dob" name="groom_dob">
+                                    <input readonly type="text"  placeholder="YYYY-MM-DD" class="form-control"  v-model="witness1_dob" name="witness1_dob">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="city" class=" form-control-label">সাক্ষীর পিতার নাম ( বাংলায় )</label>
-                                    <input readonly type="text"  placeholder="" class="form-control"  v-model="groom_fathers_name" name="groom_father">
+                                    <input readonly type="text"  placeholder="" class="form-control"  v-model="witness1_fathers_name" name="witness1_father_name">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="country" class=" form-control-label">সাক্ষীর মাতার নাম ( বাংলায় )</label>
-                                    <input readonly type="text" id="groom_mother" placeholder="" class="form-control"  v-model="groom_mothers_name" name="groom_mother">
+                                    <input readonly type="text" id="groom_mother" placeholder="" class="form-control"  v-model="witness1_mothers_name" name="witness1_mother_name">
                                 </div>
                                 
                                 </div>
-                                <button type="button" @click="groom_info" class="form-control btn btn-primary btn-block">তথ্য যাচাই করুন </button>
-        
-                               
-        
+                                <button type="button" @click="witness1_info" class="form-control btn btn-primary btn-block">তথ্য যাচাই করুন </button>
                             </div>
                         </div>
                     </div>
@@ -67,34 +65,34 @@
                             <div class="card-body card-block">
                                 <div class="form-group">
                                     <label for="vat" class=" form-control-label">জাতীয় পরিচয় পত্রের নম্বর </label>
-                                    <input  type="text" id="nid" placeholder="1234567890" class="form-control" name="bride_nid" v-model="bride_nid">
+                                    <input  type="text" id="nid" placeholder="1234567890" class="form-control" name="witness2_nid" v-model="witness2_nid">
                                 </div>
 
                                 <div class="bride-block">
 
                                 <div class="form-group">
                                     <label for="name" class=" form-control-label">সাক্ষীর নাম ( বাংলায় )</label>
-                                    <input readonly type="text" id="cname" placeholder="" class="form-control" v-model="bride_name" name="bride_name">
+                                    <input readonly type="text" id="cname" placeholder="" class="form-control" v-model="witness2_name" name="witness2_name">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="dob" class=" form-control-label">জন্ম তারিখ </label>
-                                    <input readonly type="text" id="dob" placeholder="YYYY-MM-DD" class="form-control" v-model="bride_dob" name="bride_dob">
+                                    <input readonly type="text" id="dob" placeholder="YYYY-MM-DD" class="form-control" v-model="witness2_dob" name="witness2_dob">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="fname" class=" form-control-label">সাক্ষীর পিতার নাম ( বাংলায় )</label>
-                                    <input readonly type="text" id="fname" placeholder="" class="form-control" v-model="bride_fathers_name" name="bride_father">
+                                    <input readonly type="text" id="fname" placeholder="" class="form-control" v-model="witness2_fathers_name" name="witness2_father_name">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label for="mname" class=" form-control-label">সাক্ষীর মাতার নাম ( বাংলায় )</label>
-                                    <input readonly type="text" id="mname" placeholder="" class="form-control" v-model="bride_mothers_name" name="bride_mother">
+                                    <input readonly type="text" id="mname" placeholder="" class="form-control" v-model="witness2_mothers_name" name="witness2_mother_name">
                                 </div>
         
                                 </div>
 
-                                <button type="button" @click="bride_info" class="form-control btn btn-primary btn-block">তথ্য যাচাই করুন </button>
+                                <button type="button" @click="witness2_info" class="form-control btn btn-primary btn-block">তথ্য যাচাই করুন </button>
                             </div>
                         </div>
                     </div>
@@ -115,35 +113,31 @@
     let vi=new Vue({
         el:'.content',
         data:{
-            groom_name: '',
-            groom_fathers_name: '',
-            groom_mothers_name: '',
-            groom_dob: '',
-            bride_name: '',
-            bride_fathers_name: '',
-            bride_mothers_name: '',
-            bride_dob: '',
-            groom_nid: '',
-            bride_nid: '',
-            prev_wife:'',
-            prev_wife_nid:'',
-            prev_hus:'',
-            prev_hus_nid:''
+            witness1_name: '',
+            witness1_fathers_name: '',
+            witness1_mothers_name: '',
+            witness1_dob: '',
+            witness2_name: '',
+            witness2_fathers_name: '',
+            witness2_mothers_name: '',
+            witness2_dob: '',
+            witness1_nid: '',
+            witness2_nid: '',
         },
 
         methods:{
-            groom_info:function(){
-                axios.get('http://127.0.0.1:8000/api/get-nid?nid='+vi.groom_nid)
+            witness1_info:function(){
+                axios.get('http://127.0.0.1:8000/api/get-nid?nid='+vi.witness1_nid)
                 .then(function(response){
                     console.log(response.data);
-                    var groom=response.data;
-                    vi.groom_name=groom.nid.name;
-                    vi.groom_fathers_name=groom.nid.fathers_name;
-                    vi.groom_mothers_name=groom.nid.mothers_name;
-                    vi.groom_dob=groom.nid.dob;
-                    if(groom.marriage != null){
-                        vi.prev_wife=groom.marriage;
-                        vi.prev_wife_nid=groom.marriage.num;
+                    var witness1=response.data;
+                    vi.witness1_name=witness1.nid.name;
+                    vi.witness1_fathers_name=witness1.nid.fathers_name;
+                    vi.witness1_mothers_name=witness1.nid.mothers_name;
+                    vi.witness1_dob=witness1.nid.dob;
+                    if(witness1.marriage != null){
+                        vi.prev_wife=witness1.marriage;
+                        vi.prev_wife_nid=witness1.marriage.num;
                     }
                     else{
                         vi.prev_wife="N/A";
@@ -157,18 +151,18 @@
                 $('.groom-block').show();
             },
 
-            bride_info:function(){
-                axios.get('http://127.0.0.1:8000/api/get-nid?nid='+vi.bride_nid)
+            witness2_info:function(){
+                axios.get('http://127.0.0.1:8000/api/get-nid?nid='+vi.witness2_nid)
                 .then(function(response){
                     console.log(response.data);
-                    var bride=response.data;
-                    vi.bride_name=bride.nid.name;
-                    vi.bride_fathers_name=bride.nid.fathers_name;
-                    vi.bride_mothers_name=bride.nid.mothers_name;
-                    vi.bride_dob=bride.nid.dob;
-                    if(bride.marriage != null){
-                        vi.prev_wife=bride.marriage;
-                        vi.prev_wife_nid=bride.marriage.num;
+                    var witness2=response.data;
+                    vi.witness2_name=witness2.nid.name;
+                    vi.witness2_fathers_name=witness2.nid.fathers_name;
+                    vi.witness2_mothers_name=witness2.nid.mothers_name;
+                    vi.witness2_dob=witness2.nid.dob;
+                    if(witness2.marriage != null){
+                        vi.prev_wife=witness2.marriage;
+                        vi.prev_wife_nid=witness2.marriage.num;
                     }
                     else{
                         vi.prev_hus="N/A";
